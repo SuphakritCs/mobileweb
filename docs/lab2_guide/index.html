@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KKU Campus Guide — ไกด์แคมปัส</title>
+  <meta name="description" content="KKU Campus Guide — แนะนำสถานที่ภายในมหาวิทยาลัยขอนแก่น พร้อมภาพและแบบฟอร์ม" />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* -------------------------
+       Root / Global
+       ------------------------- */
+    :root{
+      --kku-brick:#c75a1a;
+      --kku-warm:#e98b3f;
+      --kku-light:#fff6ee;
+      --kku-dark:#3a2a20;
+      --accent:#f7b36b;
+      --card-radius:14px;
+      --maxw:1100px;
+      --shadow: 0 10px 30px rgba(58,42,32,0.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Kanit",system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",Arial;
+      background:linear-gradient(180deg,var(--kku-light),#fff);
+      color:var(--kku-dark);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+    .container{max-width:var(--maxw);margin:0 auto;padding:18px}
+
+    /* -------------------------
+       Intro overlay (shown on page load)
+       ------------------------- */
+    .intro{
+      position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg, rgba(199,90,26,0.98), rgba(233,139,63,0.95));
+      color:white;z-index:9999;flex-direction:column;gap:18px;padding:20px;
+      clip-path:circle(150% at 50% 50%); /* will animate shrink to reveal */
+      transition:clip-path 1s cubic-bezier(.2,.9,.3,1),opacity 0.8s;
+    }
+    .intro.hidden{clip-path:circle(0% at 50% 50%);opacity:0;pointer-events:none}
+    .intro h1{font-size:2rem;margin:0;letter-spacing:0.6px}
+    .intro p{margin:0;opacity:0.95}
+    .intro .enter-btn{
+      margin-top:8px;padding:10px 18px;border-radius:999px;border:0;background:white;color:var(--kku-brick);
+      font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.12);
+      transform:translateY(0);transition:transform .18s;
+    }
+    .intro .enter-btn:active{transform:translateY(2px)}
+
+    /* -------------------------
+       Header + Animated Gradient
+       ------------------------- */
+    header{
+      background:linear-gradient(135deg,var(--kku-brick),var(--kku-warm),var(--kku-brick));
+      background-size:300% 300%;
+      animation:gradientFlow 12s linear infinite;
+      color:white;padding:34px 0 60px;overflow:visible;
+      position:relative;
+    }
+    @keyframes gradientFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    .brand{display:flex;align-items:center;gap:16px}
+    /* logo container (we'll put inline SVG inside) */
+    .logo-wrap{width:96px;height:96px;flex:0 0 96px;display:flex;align-items:center;justify-content:center}
+    /* small tagline */
+    .lead{opacity:0.95;margin-top:6px;font-weight:300}
+
+    /* -------------------------
+       Background decorative circles (parallax)
+       ------------------------- */
+    .bg-large{
+      position:fixed;right:-120px;top:-160px;width:420px;height:420px;border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, rgba(255,225,194,0.45), rgba(199,90,26,0.18));
+      filter:blur(50px);z-index:-2;transform:translateZ(0);
+    }
+    .bg-small{
+      position:fixed;left:-80px;bottom:-80px;width:260px;height:260px;border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, rgba(247,179,107,0.36), rgba(199,90,26,0.12));
+      filter:blur(32px);z-index:-2;transform:translateZ(0);
+    }
+
+    /* -------------------------
+       Main grid (content + sidebar)
+       ------------------------- */
+    main{margin-top:-40px}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
+    @media (max-width:980px){.grid{grid-template-columns:1fr;padding:0 10px}}
+    @media (max-width:420px){.grid{grid-template-columns:1fr}}
+
+    /* Card styles */
+    .card{background:white;border-radius:var(--card-radius);padding:16px;display:flex;gap:12px;align-items:flex-start;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.04);opacity:0;transform:translateY(30px) scale(.995);transition:transform .4s,opacity .5s}
+    .card.revealed{opacity:1;transform:translateY(0) scale(1)}
+    .thumbs{width:36%;display:flex;flex-direction:column;gap:8px}
+    .thumbs img{width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;transition:transform .25s,filter .25s}
+    .thumbs img:hover{transform:scale(1.04);filter:brightness(.96)}
+    .card-body h2{margin:0;color:var(--kku-brick);font-size:1.15rem}
+    .meta{color:#7b5f4c;margin-top:6px;font-size:.9rem}
+    .desc{margin-top:8px;line-height:1.5;color:#4b3c33}
+
+    .actions{margin-top:10px;display:flex;gap:8px}
+    .btn{padding:8px 12px;border-radius:10px;border:0;background:var(--kku-brick);color:white;font-weight:700;cursor:pointer;box-shadow:0 8px 18px rgba(199,90,26,0.18)}
+    .btn.ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--kku-dark)}
+
+    /* -------------------------
+       Sidebar
+       ------------------------- */
+    aside{background:white;border-radius:var(--card-radius);padding:18px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.04)}
+    .avatar{width:72px;height:72px;border-radius:12px;background:linear-gradient(180deg,var(--accent),var(--kku-brick));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1.25rem}
+
+    /* -------------------------
+       Audio controls & custom play button
+       ------------------------- */
+    .audio-wrap{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,0.9);padding:10px;border-radius:12px;border:1px solid rgba(0,0,0,0.04)}
+    .play-toggle{padding:8px 12px;border-radius:999px;border:0;background:var(--kku-brick);color:white;font-weight:700;cursor:pointer}
+    audio{display:inline-block;vertical-align:middle}
+
+    /* -------------------------
+       Form (Web3Forms)
+       ------------------------- */
+    form label{display:block;font-weight:600;margin-bottom:6px;color:var(--kku-dark)}
+    form input[type="text"], form input[type="url"], form textarea{
+      width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-bottom:12px;font-size:0.95rem;
+    }
+
+    /* -------------------------
+       Footer
+       ------------------------- */
+    footer{text-align:center;margin:28px auto 60px;color:#6b5648;font-size:.95rem}
+
+    /* small screens */
+    @media (max-width:480px){
+      .lead{font-size:.92rem}
+      .logo-wrap{width:72px;height:72px}
+      .thumbs img{height:80px}
+    }
+
+    /* subtle entrance for header elements */
+    .fade-in-up{opacity:0;transform:translateY(14px);transition:opacity .6s ease,var(--t,transform) .6s ease}
+    .fade-in-up.show{opacity:1;transform:translateY(0)}
+
+    /* SVG logo stroke draw */
+    .logo-svg .strokepath{stroke:rgba(58,42,32,0.9);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:600;stroke-dashoffset:600;animation:draw 1.6s ease forwards 0.4s}
+    @keyframes draw{to{stroke-dashoffset:0}}
+    .logo-svg .fill{fill:var(--kku-brick);transform-origin:center;transform:scale(.9);opacity:0;animation:logoFill .8s ease forwards 1.8s}
+    @keyframes logoFill{to{transform:scale(1);opacity:1}}
+    /* small gentle bounce */
+    .logo-svg{transition:transform .8s;transform-origin:center}
+    .logo-svg:hover{transform:translateY(-6px) rotate(-2deg);}
+
+  </style>
+</head>
+<body>
+
+  <!-- background decorative (parallax) -->
+  <div class="bg-large" id="bgLarge" aria-hidden="true"></div>
+  <div class="bg-small" id="bgSmall" aria-hidden="true"></div>
+
+  <!-- Intro overlay (appears on first load) -->
+  <div class="intro" id="intro">
+    <div style="display:flex;align-items:center;gap:12px">
+      <!-- Inline small SVG crest in intro -->
+      <svg width="56" height="56" viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="filter:drop-shadow(0 8px 18px rgba(0,0,0,0.18))">
+        <circle cx="50" cy="50" r="48" fill="rgba(255,255,255,0.12)"/>
+        <path d="M50 20 L64 52 L50 44 L36 52 Z" fill="white" opacity="0.95"/>
+        <circle cx="50" cy="66" r="8" fill="white" opacity="0.95"/>
+      </svg>
+      <div>
+        <h1>ยินดีต้อนรับสู่ KKU Campus Guide</h1>
+        <p>ไกด์แคมปัส — แนะนำสถานที่สำคัญ ภาพ และฟอร์มส่งข้อมูล</p>
+      </div>
+    </div>
+    <button class="enter-btn" id="enterBtn" aria-label="เข้าเว็บไซต์">เข้าชมเว็บไซต์</button>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container brand">
+      <div class="logo-wrap" aria-hidden="false" title="KKU Logo">
+        <!-- Inline SVG Logo (แยกเป็น SVG ให้แล้ว) -->
+        <svg class="logo-svg" viewBox="0 0 200 200" width="84" height="84" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="kkuTitle kkuDesc">
+          <title id="kkuTitle">KKU — Khon Kaen University</title>
+          <desc id="kkuDesc">โลโก้เชิงศิลป์แสดงประตูและวงกลมแทนชุมชนและการเรียนรู้</desc>
+
+          <!-- Outer circle -->
+          <circle cx="100" cy="100" r="92" fill="#fff5f0" stroke="rgba(58,42,32,0.06)" stroke-width="2"/>
+
+          <!-- stylized gate (geometric shapes) -->
+          <!-- stroke paths for draw animation -->
+          <path class="strokepath" d="M64 120 L64 78 C64 66 74 56 86 56 L114 56 C126 56 136 66 136 78 L136 120" />
+          <path class="strokepath" d="M86 74 L86 92 L114 92 L114 74" />
+          <path class="strokepath" d="M92 126 A8 8 0 1 0 108 126" />
+
+          <!-- filled shapes (appear after stroke) -->
+          <rect class="fill" x="68" y="84" width="60" height="36" rx="6" fill="var(--kku-brick)" opacity="0.98"/>
+          <path class="fill" d="M100 46 L116 84 L84 84 Z" fill="#ffd9b8" opacity="0.95"/>
+
+          <!-- small dots representing students/community -->
+          <circle cx="82" cy="136" r="6" fill="#f7b36b"/>
+          <circle cx="118" cy="136" r="6" fill="#f7b36b"/>
+        </svg>
+      </div>
+
+      <div>
+        <h1 style="margin:0;font-size:1.4rem">KKU Campus Guide</h1>
+        <p class="lead">ไกด์แนะนำสถานที่เด่นภายในมหาวิทยาลัยขอนแก่น — ภาพและคำอธิบาย</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- small audio control area -->
+  <div class="container" style="margin-top:14px;">
+    <div class="audio-wrap" role="region" aria-label="เครื่องเล่นเพลงประกอบ">
+      <button class="play-toggle" id="playToggle" aria-pressed="false">▶ เล่นเพลง</button>
+      <!-- audio element (use music.mp3 placed in same folder) -->
+      <audio id="bgm" preload="none" loop>
+        <source src="TEDz -  Official MV.mp3" type="audio/mpeg">
+        เบราว์เซอร์ของคุณไม่รองรับการเล่นเสียง
+      </audio>
+      <small style="color:#6b574c">อย่าลืมเปิดฟังนะครับอาจารย์เพลงดีมากๆ <code></code> </small>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+    <div class="grid">
+
+      <!-- Left column -->
+      <section aria-labelledby="placesTitle">
+        <h2 id="placesTitle" style="display:none">สถานที่สำคัญ</h2>
+
+        <!-- Card 1 -->
+        <article class="card" tabindex="0">
+          <div class="thumbs" aria-hidden="false">
+            <img src="ประตูสีฐาน.jpg" alt="ประตูสีฐาน มข.">
+            <img src="ประตูสีฐาน2.jpg" alt="ภาพมุมกว้างประตูสีฐาน">
+          </div>
+          <div class="card-body">
+            <h2>ประตูสีฐาน (Si Than Gate)</h2>
+            <div class="meta">สัญลักษณ์สำคัญของมหาวิทยาลัย — จุดถ่ายรูปยอดนิยม</div>
+            <div class="desc">ประตูสีฐานตั้งอยู่บริเวณทางเข้าหลักของมหาวิทยาลัย เป็นจุดที่นิสิตและผู้เยี่ยมชมมักถ่ายรูปและนัดพบกัน</div>
+            <div class="actions">
+              <button class="btn" onclick="location.href='#'">แผนที่</button>
+              <button class="btn ghost">ข้อมูลเพิ่มเติม</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card" tabindex="0">
+          <div class="thumbs">
+            <img src="หอสมุดกลาง.jpeg" alt="หอสมุดกลาง มข.">
+            <img src="ด้านในหอสมุด.jpg" alt="ด้านในหอสมุด">
+          </div>
+          <div class="card-body">
+            <h2>หอสมุดกลาง มข.</h2>
+            <div class="meta">ทรัพยากรการเรียนรู้ของนิสิตและบุคลากร</div>
+            <div class="desc">หอสมุดกลางมีหนังสือ ห้องอ่านและทรัพยากรอิเล็กทรอนิกส์ เหมาะสำหรับการค้นคว้าและเตรียมงาน</div>
+            <div class="actions"><button class="btn">ค้นหาหนังสือ</button></div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card" tabindex="0">
+          <div class="thumbs">
+            <img src="KKU.jpg" alt="ศูนย์ประชุมกาญจนาภิเษก">
+            <img src="kku1.jpg" alt="มุมมองจากด้านบนของศูนย์ประชุม">
+          </div>
+          <div class="card-body">
+            <h2>ศูนย์ประชุมกาญจนาภิเษก</h2>
+            <div class="meta">สถานที่จัดงานสัมมนา คอนเสิร์ต และกิจกรรมขนาดใหญ่</div>
+            <div class="desc">ศูนย์ประชุมขนาดใหญ่ของมหาวิทยาลัย เหมาะสำหรับกิจกรรมหลากหลายประเภททั้งภายในและภายนอก</div>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card" tabindex="0">
+          <div class="thumbs">
+            <img src="ธรรมชาติ.jpg" alt="พิพิธภัณฑ์ธรรมชาติ มข.">
+            <img src="เกษตร.jpg" alt="สวนพฤกษศาสตร์ มข.">
+          </div>
+          <div class="card-body">
+            <h2>พิพิธภัณฑ์ธรรมชาติ & สวนพฤกษศาสตร์</h2>
+            <div class="meta">พื้นที่เรียนรู้เชิงธรรมชาติ</div>
+            <div class="desc">จัดแสดงตัวอย่างพืช สัตว์ และพื้นที่สวนที่ใช้ศึกษาและพักผ่อน เหมาะสำหรับนิสิตและครอบครัว</div>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- Sidebar -->
+      <aside aria-labelledby="aboutTitle">
+        <h3 id="aboutTitle">ข้อมูลผู้จัดทำ</h3>
+        <div style="display:flex;gap:12px;margin-top:12px;align-items:center">
+          <div class="avatar">
+            <img src="ตัวฉัน.png" style="width:100%;height:100%;border-radius:12px;object-fit:cover;">
+                </div>
+          <div>
+            <div style="font-weight:700">รหัสนักศึกษา: <span style="color:var(--kku-brick)">663380403-1</span></div>
+            <div>ชื่อ-สกุล: นาย ศุภกฤต สังข์มณีวงศ์</div>
+          </div>
+        </div>
+
+        <section style="margin-top:18px">
+          <h4>แบบฟอร์มเพิ่มสถานที่</h4>
+          <p style="margin:6px 0 12px;color:#6b5548;font-size:.95rem">ส่งชื่อสถานที่ รายละเอียด และ URL ของภาพ (ข้อมูลจะส่งผ่าน Web3Forms)</p>
+
+          <!-- Web3Forms — เปลี่ยน access_key เป็นของคุณ -->
+          <form action="https://api.web3forms.com/submit" method="POST" id="placeForm">
+            <input type="hidden" name="access_key" value="91bab0d2-eb63-419b-a15b-9b210658a943">
+            <label for="place_name">ชื่อสถานที่</label>
+            <input id="place_name" name="place_name" type="text" placeholder="เช่น ประตูสีฐาน" required>
+
+            <label for="place_detail">รายละเอียด</label>
+            <textarea id="place_detail" name="place_detail" rows="4" placeholder="คำอธิบายสั้น ๆ" required></textarea>
+
+            <label for="place_image">URL ของภาพ</label>
+            <input id="place_image" name="place_image" type="url" placeholder="https://example.com/your-image.jpg" required>
+
+            <!-- Optional extra fields for Web3Forms (e.g., redirect) -->
+            <input type="hidden" name="subject" value="New KKU Place Submission">
+            <input type="hidden" name="redirect" value="">
+
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <button type="submit" class="btn">ส่งข้อมูล</button>
+              <button type="reset" class="btn ghost" onclick="document.getElementById('placeForm').reset()">ล้าง</button>
+            </div>
+          </form>
+
+          <p style="margin-top:10px;font-size:.9rem;color:#6b5548">
+           
+          </p>
+        </section>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="container">
+    © 2025 KKU Campus Guide — ออกแบบเพื่อการศึกษา โปรดตรวจสอบสิทธิ์ภาพก่อนใช้งานเชิงพาณิชย์
+  </footer>
+
+  <!-- SCRIPT: interactions, animations, parallax, scroll reveal -->
+  <script>
+    // ===== Intro behavior =====
+    const intro = document.getElementById('intro');
+    const enterBtn = document.getElementById('enterBtn');
+
+    function hideIntro() {
+      intro.classList.add('hidden');
+      // after hiding, remove element to avoid blocking interactions
+      setTimeout(()=>{ intro.style.display='none'; }, 900);
+      // reveal header small elements
+      document.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('show'));
+    }
+
+    // allow user to click button to enter
+    enterBtn.addEventListener('click', hideIntro);
+
+    // auto-hide intro after 4.2s for passive users
+    setTimeout(() => {
+      if (intro) hideIntro();
+    }, 4200);
+
+    // ===== Audio control logic =====
+    const audio = document.getElementById('bgm');
+    const playToggle = document.getElementById('playToggle');
+
+    // Set accessibility label initial
+    playToggle.setAttribute('aria-pressed','false');
+
+    playToggle.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play().catch(()=> {
+          // browsers may block autoplay; instruct user
+          alert('เบราว์เซอร์อาจบล็อกการเล่นอัตโนมัติ — กรุณากดปุ่มอีกครั้งหากไม่เล่น');
+        });
+        playToggle.textContent = '⏸ หยุดเล่น';
+        playToggle.setAttribute('aria-pressed','true');
+      } else {
+        audio.pause();
+        playToggle.textContent = '▶ เล่นเพลง';
+        playToggle.setAttribute('aria-pressed','false');
+      }
+    });
+
+    // Pause button label updates when ended/paused
+    audio.addEventListener('pause', ()=> { playToggle.textContent = '▶ เล่นเพลง'; playToggle.setAttribute('aria-pressed','false'); });
+    audio.addEventListener('play', ()=> { playToggle.textContent = '⏸ หยุดเล่น'; playToggle.setAttribute('aria-pressed','true'); });
+
+    // ===== Parallax background (light) =====
+    const bgL = document.getElementById('bgLarge');
+    const bgS = document.getElementById('bgSmall');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      // subtle parallax — move backgrounds in opposite directions
+      if (bgL) bgL.style.transform = 'translateY(' + (y * 0.08) + 'px) rotate(' + (y * 0.01) + 'deg)';
+      if (bgS) bgS.style.transform = 'translateY(' + (y * -0.06) + 'px) rotate(' + (y * -0.02) + 'deg)';
+    }, {passive: true});
+
+    // ===== Scroll reveal for .card elements using IntersectionObserver =====
+    const cards = document.querySelectorAll('.card');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.15});
+
+    cards.forEach((c) => io.observe(c));
+
+    // ===== Small accessibility: keyboard open intro with Enter key =====
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && intro && intro.style.display !== 'none') {
+        hideIntro();
+      }
+    });
+
+    // ===== Web3Forms: optional JS feedback (prevent default and show message) =====
+    const placeForm = document.getElementById('placeForm');
+    placeForm.addEventListener('submit', function(e){
+      // allow form to submit normally to web3forms; optionally show spinner or message
+      // Here we show a quick confirmation and let it proceed.
+      // If you want to submit via fetch/ajax, we can replace this.
+      alert('กำลังส่งข้อมูล โปรดรอสักครู่... (ระบบจะเปลี่ยนหน้าเมื่อมีการตั้งค่าการ redirect)');
+      // allow default submission
+    });
+
+    // ===== Small: animate SVG logo hover compatibility for touch devices =====
+    // Add gentle periodic nudge to logo for attention
+    const svgLogo = document.querySelector('.logo-svg');
+    if (svgLogo) {
+      setInterval(()=>{ svgLogo.style.transform = 'translateY(-4px) rotate(-1deg)'; setTimeout(()=>{ svgLogo.style.transform = ''; }, 600); }, 4200);
+    }
+  </script>
+</body>
+</html>
