@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <title>Ionic App</title>
 
-  <!-- FIX BASE PATH -->
-  <base href="/mobileweb/lab04/index.html" />
+  <!-- FIX BASE -->
+  <base href="/mobileweb/lab04/" />
 
   <meta name="color-scheme" content="light dark" />
   <meta
@@ -17,38 +17,12 @@
 
   <link rel="shortcut icon" type="image/png" href="./favicon.png" />
 
-  <!-- Vite Assets (FIX PATH) -->
-  <script type="module" crossorigin src="./assets/index-3v1Evq6L.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CV2ytict.css">
-
-  <script type="module">
-    import.meta.url;
-    import("_").catch(()=>1);
-    (async function*(){})().next();
-    if(location.protocol!="file:"){window.__vite_is_modern_browser=true}
-  </script>
-
-  <script type="module">
-    !function(){
-      if(window.__vite_is_modern_browser)return;
-      console.warn("vite: loading legacy chunks");
-      var e=document.getElementById("vite-legacy-polyfill"),
-          n=document.createElement("script");
-      n.src=e.src;
-      n.onload=function(){
-        System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))
-      };
-      document.body.appendChild(n)
-    }();
-  </script>
+  <!-- Vite Assets -->
+  <script type="module" crossorigin src="./assets/index-B60jC9IX.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-h9xT1z0Z.css">
 </head>
 
 <body>
   <div id="app"></div>
-
-  <script nomodule crossorigin id="vite-legacy-polyfill" src="./assets/polyfills-legacy-BtJjzUd3.js"></script>
-  <script nomodule crossorigin id="vite-legacy-entry" data-src="./assets/index-legacy-Dp-F8MDc.js">
-    System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))
-  </script>
 </body>
 </html>

@@ -10,7 +10,6 @@ export default defineConfig({
   base: '/mobileweb/lab04/',
   plugins: [
     vue(),
-    legacy(),
   ],
   resolve: {
     alias: {
