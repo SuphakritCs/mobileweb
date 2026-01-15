@@ -1,32 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Ionic App</title>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Lab04 – Photo Gallery App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+  margin:0;
+  font-family:Prompt,sans-serif;
+  background:linear-gradient(135deg,#e8f8f1,#fff);
+  text-align:center;
+}
+.container{max-width:420px;margin:auto;padding:20px}
+img{width:100%;border-radius:16px;margin:12px 0;box-shadow:0 6px 16px rgba(0,0,0,.2)}
+.download{
+  display:block;
+  background:#2ecc71;
+  color:#fff;
+  padding:14px;
+  border-radius:12px;
+  text-decoration:none;
+  font-size:18px;
+  margin-top:20px;
+  box-shadow:0 4px 12px rgba(0,0,0,.25)
+}
+</style>
+</head>
 
-    <base href="/mobileweb/lab04" />
+<body>
+<div class="container">
+<h2>Lab04 – Ionic Photo Gallery</h2>
+<p>663380403-1 นายศุภกฤต สังข์มณีวงศ์</p>
 
-    <meta name="color-scheme" content="light dark" />
-    <meta
-      name="viewport"
-      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
+<img src="screen1.jpg">
+<img src="screen2.jpg">
+<img src="screen3.jpg">
+<img src="screen4.jpg">
+<img src="screen5.jpg">
 
-    <link rel="shortcut icon" type="image/png" href="/mobileweb/lab04/favicon.png" />
-
-    <!-- add to homescreen for ios -->
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="Ionic App" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <script type="module" crossorigin src="/mobileweb/lab04/assets/index-CkdmbL3K.js"></script>
-    <link rel="stylesheet" crossorigin href="/mobileweb/lab04/assets/index-h9xT1z0Z.css">
-  </head>
-
-  <body>
-    <div id="app"></div>
-  </body>
-
+<a class="download" href="app-release.apk">⬇ ดาวน์โหลดแอป (APK)</a>
+</div>
+</body>
 </html>
-
