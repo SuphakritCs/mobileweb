@@ -4,41 +4,104 @@
 <meta charset="UTF-8">
 <title>Lab04 – Photo Gallery App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
 body{
   margin:0;
   font-family:Prompt,sans-serif;
-  background:linear-gradient(135deg,#e8f8f1,#fff);
+  background:linear-gradient(135deg,#e8f8f1,#ffffff);
+  overflow-x:hidden;
+}
+#splash{
+  position:fixed;
+  inset:0;
+  background:#27ae60;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+  z-index:999;
+  animation:fadeOut 1s ease 2.5s forwards;
+}
+#splash img{width:180px}
+#splash h1{margin:15px 0 0}
+
+@keyframes fadeOut{
+  to{opacity:0;visibility:hidden}
+}
+
+.container{
+  max-width:480px;
+  margin:auto;
+  padding:20px;
+  animation:fadeIn 1s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.card{
+  background:#fff;
+  border-radius:20px;
+  padding:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  margin-bottom:20px;
   text-align:center;
 }
-.container{max-width:420px;margin:auto;padding:20px}
-img{width:100%;border-radius:16px;margin:12px 0;box-shadow:0 6px 16px rgba(0,0,0,.2)}
+.profile img{width:100px;border-radius:50%}
+
+.gallery img{
+  width:100%;
+  border-radius:16px;
+  margin:14px 0;
+  box-shadow:0 6px 16px rgba(0,0,0,.2);
+}
+
 .download{
   display:block;
-  background:#2ecc71;
+  background:#27ae60;
   color:#fff;
-  padding:14px;
-  border-radius:12px;
+  padding:16px;
+  border-radius:14px;
   text-decoration:none;
   font-size:18px;
-  margin-top:20px;
-  box-shadow:0 4px 12px rgba(0,0,0,.25)
+  margin:24px 0;
+  box-shadow:0 6px 14px rgba(0,0,0,.25);
+  transition:.3s;
 }
+.download:hover{background:#219150;transform:translateY(-2px)}
 </style>
 </head>
 
 <body>
+
+<!-- Splash Screen -->
+<div id="splash">
+  <img src="welcome.gif">
+  <h1>Welcome</h1>
+  <p>Photo Gallery App</p>
+</div>
+
 <div class="container">
-<h2>Lab04 – Ionic Photo Gallery</h2>
-<p>663380403-1 นายศุภกฤต สังข์มณีวงศ์</p>
 
-<img src="screen1.jpg">
-<img src="screen2.jpg">
-<img src="screen3.jpg">
-<img src="screen4.jpg">
-<img src="screen5.jpg">
+<div class="card profile">
+  <h3>663380403-1</h3>
+  <p>นายศุภกฤต สังข์มณีวงศ์</p>
+</div>
 
-<a class="download" href="app-release.apk">⬇ ดาวน์โหลดแอป (APK)</a>
+<div class="card gallery">
+  <img src="screen1.jpg">
+  <img src="screen2.jpg">
+  <img src="screen3.jpg">
+  <img src="screen4.jpg">
+  <img src="screen5.jpg">
+</div>
+
+<a class="download" href="app-debug.apk">⬇ ดาวน์โหลดแอป (APK)</a>
+
 </div>
 </body>
 </html>
