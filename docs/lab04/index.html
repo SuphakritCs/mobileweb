@@ -13,6 +13,8 @@ body{
   background:linear-gradient(135deg,#e8f8f1,#ffffff);
   overflow-x:hidden;
 }
+
+/* Splash */
 #splash{
   position:fixed;
   inset:0;
@@ -23,57 +25,69 @@ body{
   align-items:center;
   color:#fff;
   z-index:999;
-  animation:fadeOut 1s ease 2.5s forwards;
+  animation:fadeOut 1s ease 3s forwards;
 }
-#splash img{width:180px}
-#splash h1{margin:15px 0 0}
-
-@keyframes fadeOut{
-  to{opacity:0;visibility:hidden}
+#splash img{
+  width:90vw;
+  max-width:500px;
 }
+#splash h1{margin-top:20px}
 
+/* Container */
 .container{
-  max-width:480px;
+  max-width:1100px;
   margin:auto;
   padding:20px;
   animation:fadeIn 1s ease;
 }
 @keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px)}
+  from{opacity:0;transform:translateY(30px)}
   to{opacity:1;transform:translateY(0)}
 }
 
+/* Profile Card */
 .card{
   background:#fff;
-  border-radius:20px;
-  padding:16px;
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
-  margin-bottom:20px;
+  border-radius:24px;
+  padding:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+  margin-bottom:24px;
   text-align:center;
 }
-.profile img{width:100px;border-radius:50%}
 
-.gallery img{
-  width:100%;
-  border-radius:16px;
-  margin:14px 0;
-  box-shadow:0 6px 16px rgba(0,0,0,.2);
+/* Horizontal Gallery */
+.gallery{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  padding:10px;
 }
+.gallery img{
+  width:260px;
+  border-radius:18px;
+  box-shadow:0 8px 18px rgba(0,0,0,.25);
+  flex-shrink:0;
+  transition:.3s;
+}
+.gallery img:hover{transform:scale(1.05)}
 
+/* Download Button */
 .download{
   display:block;
   background:#27ae60;
   color:#fff;
-  padding:16px;
-  border-radius:14px;
+  padding:18px;
+  border-radius:16px;
   text-decoration:none;
-  font-size:18px;
-  margin:24px 0;
-  box-shadow:0 6px 14px rgba(0,0,0,.25);
+  font-size:20px;
+  margin:30px auto 0;
+  width:320px;
+  box-shadow:0 8px 18px rgba(0,0,0,.3);
   transition:.3s;
 }
-.download:hover{background:#219150;transform:translateY(-2px)}
+.download:hover{background:#219150;transform:translateY(-3px)}
 </style>
+
 </head>
 
 <body>
