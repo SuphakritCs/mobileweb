@@ -1,0 +1,14 @@
+.splash{
+  background: linear-gradient(135deg,#2ecc71,#27ae60);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  height:100%;
+  animation:fadeout 1s ease 2.5s forwards;
+}
+
+@keyframes fadeout{
+  to{opacity:0;visibility:hidden}
+}
