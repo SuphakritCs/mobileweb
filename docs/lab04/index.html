@@ -3,10 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Lab04 – Photo Gallery App</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --green:#27ae60;
+  --dark:#145a32;
+}
+
 body{
   margin:0;
   font-family:Prompt,sans-serif;
@@ -18,104 +23,104 @@ body{
 #splash{
   position:fixed;
   inset:0;
-  background:#27ae60;
+  background:linear-gradient(135deg,#27ae60,#145a32);
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   color:#fff;
   z-index:999;
-  animation:fadeOut 1s ease 3s forwards;
 }
-#splash img{
-  width:90vw;
+#splash img{width:90vw;max-width:520px}
+#splash.hide{animation:fadeOut 1s ease forwards}
+
+/* Main */
+.main{opacity:0;animation:fadeIn 1.2s ease 2.8s forwards}
+
+@keyframes fadeOut{to{opacity:0;visibility:hidden}}
+@keyframes fadeIn{to{opacity:1}}
+
+/* Header Card */
+.hero{
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(12px);
+  border-radius:30px;
+  padding:30px;
+  box-shadow:0 12px 35px rgba(0,0,0,.2);
+  text-align:center;
+  margin:30px auto;
   max-width:500px;
 }
-#splash h1{margin-top:20px}
 
-/* Container */
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:20px;
-  animation:fadeIn 1s ease;
-}
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* Profile Card */
-.card{
-  background:#fff;
-  border-radius:24px;
-  padding:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,.15);
-  margin-bottom:24px;
-  text-align:center;
-}
-
-/* Horizontal Gallery */
+/* Gallery */
+.gallery-wrap{margin:30px auto;max-width:1200px}
 .gallery{
   display:flex;
-  gap:18px;
+  gap:22px;
   overflow-x:auto;
-  padding:10px;
+  padding:20px;
 }
 .gallery img{
   width:260px;
-  border-radius:18px;
-  box-shadow:0 8px 18px rgba(0,0,0,.25);
+  border-radius:22px;
+  box-shadow:0 10px 25px rgba(0,0,0,.3);
   flex-shrink:0;
   transition:.3s;
 }
-.gallery img:hover{transform:scale(1.05)}
+.gallery img:hover{transform:scale(1.08)}
 
-/* Download Button */
+/* Download */
 .download{
   display:block;
-  background:#27ae60;
-  color:#fff;
+  width:340px;
+  margin:40px auto;
   padding:18px;
-  border-radius:16px;
+  background:linear-gradient(135deg,#27ae60,#145a32);
+  color:#fff;
   text-decoration:none;
+  text-align:center;
+  border-radius:18px;
   font-size:20px;
-  margin:30px auto 0;
-  width:320px;
-  box-shadow:0 8px 18px rgba(0,0,0,.3);
+  box-shadow:0 10px 25px rgba(0,0,0,.35);
   transition:.3s;
 }
-.download:hover{background:#219150;transform:translateY(-3px)}
+.download:hover{transform:translateY(-4px)}
 </style>
-
 </head>
 
 <body>
 
-<!-- Splash Screen -->
+<!-- Splash -->
 <div id="splash">
   <img src="welcome.gif">
   <h1>Welcome</h1>
-  <p>Photo Gallery App</p>
+  <p>Ionic Photo Gallery</p>
 </div>
 
-<div class="container">
+<div class="main">
 
-<div class="card profile">
-  <h3>663380403-1</h3>
-  <p>นายศุภกฤต สังข์มณีวงศ์</p>
+<div class="hero">
+  <h2>Lab04 – Photo Gallery App</h2>
+  <p>663380403-1 นายศุภกฤต สังข์มณีวงศ์</p>
 </div>
 
-<div class="card gallery">
-  <img src="screen1.jpg">
-  <img src="screen2.jpg">
-  <img src="screen3.jpg">
-  <img src="screen4.jpg">
-  <img src="screen5.jpg">
+<div class="gallery-wrap">
+  <div class="gallery">
+    <img src="screen1.jpg">
+    <img src="screen2.jpg">
+    <img src="screen3.jpg">
+    <img src="screen4.jpg">
+    <img src="screen5.jpg">
+  </div>
 </div>
 
-<a class="download" href="app-debug.apk">⬇ ดาวน์โหลดแอป (APK)</a>
+<a class="download" href="app-debug.apk"> ⬇ ดาวน์โหลดแอป (APK)</a>
 
 </div>
+
+<script>
+setTimeout(()=>document.getElementById('splash').classList.add('hide'),2500)
+</script>
+
 </body>
 </html>
