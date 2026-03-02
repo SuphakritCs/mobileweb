@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lab09 – Arm Workout Coach</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Prompt',sans-serif;
+}
+
+body{
+  background: radial-gradient(circle at 20% 20%, #001a12, #000);
+  color:#d2ffe9;
+  overflow-x:hidden;
+}
+
+/* ===== Background Glow Animation ===== */
+body::before{
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background: radial-gradient(circle,#00ff9c22,transparent 60%);
+  animation: rotateBG 18s linear infinite;
+  z-index:-1;
+}
+
+@keyframes rotateBG{
+  from{ transform:rotate(0deg);}
+  to{ transform:rotate(360deg);}
+}
+
+/* ===== Header ===== */
+header{
+  text-align:center;
+  padding:50px 20px;
+  animation:fadeDown 1s ease;
+}
+
+header h1{
+  font-size:42px;
+  color:#00ff9c;
+  text-shadow:0 0 20px #00ff9c;
+}
+
+header p{
+  opacity:.8;
+  margin-top:10px;
+}
+
+@keyframes fadeDown{
+  from{opacity:0; transform:translateY(-40px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* ===== Section ===== */
+.section{
+  max-width:1100px;
+  margin:60px auto;
+  padding:30px;
+  background:rgba(0,255,150,.05);
+  border-radius:20px;
+  box-shadow:0 0 40px rgba(0,255,150,.15);
+  animation:fadeUp 1s ease;
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(40px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.section h2{
+  color:#00ff9c;
+  margin-bottom:20px;
+}
+
+/* ===== Feature Box ===== */
+.feature{
+  margin-top:15px;
+  padding:15px;
+  border-left:4px solid #00ff9c;
+  background:rgba(0,255,150,.05);
+  transition:.3s;
+}
+
+.feature:hover{
+  transform:translateX(10px);
+  background:rgba(0,255,150,.1);
+}
+
+/* ===== Image Grid ===== */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+
+.gallery img{
+  width:100%;
+  border-radius:15px;
+  transition:.4s;
+  box-shadow:0 0 25px rgba(0,255,150,.25);
+}
+
+.gallery img:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 45px #00ff9c;
+}
+
+/* ===== Google Drive Button ===== */
+.video-btn{
+  display:inline-block;
+  margin-top:15px;
+  padding:16px 36px;
+  border-radius:50px;
+  background:#00ff9c;
+  color:#001a12;
+  font-weight:600;
+  text-decoration:none;
+  transition:.35s;
+  box-shadow:0 0 25px rgba(0,255,156,.5);
+}
+
+.video-btn:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 45px #00ff9c;
+  background:#00e68a;
+}
+
+/* ===== Footer ===== */
+footer{
+  text-align:center;
+  padding:30px;
+  opacity:.6;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🚀 Arm Workout Coach</h1>
+<p>663380403-1 | นายศุภกฤต สังข์มณีวงศ์</p>
+<p>Mobile Web Application Development – Lab09</p>
+</header>
+
+<!-- ===== Description ===== -->
+<section class="section">
+<h2>📱 แนวคิดของ Application</h2>
+
+<div class="feature">ใช้ Accelerometer ตรวจจับการยกแขนขึ้น-ลง</div>
+<div class="feature">ใช้ Rule-based Algorithm และ State Machine (ไม่มี Machine Learning)</div>
+<div class="feature">นับจำนวนครั้งอัตโนมัติ (Repetition Counter)</div>
+<div class="feature">มีเสียงแนะนำการออกกำลังกายด้วย Text-to-Speech</div>
+<div class="feature">มีการสั่นตอบสนองด้วย Haptics</div>
+<div class="feature">ประเมินความถูกต้องของท่าทาง (Range, Tempo, Direction)</div>
+
+</section>
+
+<!-- ===== Screenshots ===== -->
+<section class="section">
+<h2>📸 ตัวอย่างหน้าจอการทำงาน</h2>
+
+<div class="gallery">
+  <div>
+    <img src="1.jpg">
+    <p>หน้าเริ่มต้น (Idle)</p>
+  </div>
+
+  <div>
+    <img src="2.jpg">
+    <p>ขณะกำลังนับการเคลื่อนไหว</p>
+  </div>
+
+  <div>
+    <img src="3.jpg">
+    <p>แสดงผลสถิติหลังออกกำลังกาย</p>
+  </div>
+</div>
+
+</section>
+
+<!-- ===== Video Link ===== -->
+<section class="section">
+<h2>🎬 วิดีโอสาธิตการใช้งาน</h2>
+
+<p style="margin-bottom:20px; opacity:.8;">
+วิดีโอแสดงการใช้งานจริงบนอุปกรณ์ Android<br>
+กด Start → มีเสียงแนะนำ → ระบบนับรอบอัตโนมัติ
+</p>
+
+<a href="https://drive.google.com/file/d/1nGE4z7SmS2Z2BU8QJVQet6gTbkqrzUP0/view?usp=sharing"
+   target="_blank"
+   class="video-btn">
+   ▶ เปิดวิดีโอสาธิต (Google Drive)
+</a>
+
+</section>
+
+<footer>
+<p>Developed for Educational Purpose</p>
+</footer>
+
+</body>
+</html>
