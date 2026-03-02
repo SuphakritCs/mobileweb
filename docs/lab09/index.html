@@ -82,6 +82,20 @@ header p{
   margin-bottom:20px;
 }
 
+/* ===== Feature Box ===== */
+.feature{
+  margin-top:15px;
+  padding:15px;
+  border-left:4px solid #00ff9c;
+  background:rgba(0,255,150,.05);
+  transition:.3s;
+}
+
+.feature:hover{
+  transform:translateX(10px);
+  background:rgba(0,255,150,.1);
+}
+
 /* ===== Image Grid ===== */
 .gallery{
   display:grid;
@@ -101,25 +115,24 @@ header p{
   box-shadow:0 0 45px #00ff9c;
 }
 
-/* ===== Video ===== */
-video{
-  width:100%;
-  border-radius:15px;
-  box-shadow:0 0 40px rgba(0,255,150,.3);
-}
-
-/* ===== Feature Box ===== */
-.feature{
+/* ===== Google Drive Button ===== */
+.video-btn{
+  display:inline-block;
   margin-top:15px;
-  padding:15px;
-  border-left:4px solid #00ff9c;
-  background:rgba(0,255,150,.05);
-  transition:.3s;
+  padding:16px 36px;
+  border-radius:50px;
+  background:#00ff9c;
+  color:#001a12;
+  font-weight:600;
+  text-decoration:none;
+  transition:.35s;
+  box-shadow:0 0 25px rgba(0,255,156,.5);
 }
 
-.feature:hover{
-  transform:translateX(10px);
-  background:rgba(0,255,150,.1);
+.video-btn:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 45px #00ff9c;
+  background:#00e68a;
 }
 
 /* ===== Footer ===== */
@@ -144,11 +157,12 @@ footer{
 <section class="section">
 <h2>📱 แนวคิดของ Application</h2>
 
-<div class="feature">ใช้ Motion Sensor ตรวจจับการยกแขนขึ้น-ลง</div>
-<div class="feature">ระบบนับจำนวนครั้งอัตโนมัติ (Repetition Counter)</div>
-<div class="feature">มีเสียงแนะนำการออกกำลังกาย (Text-to-Speech)</div>
-<div class="feature">มีการให้คะแนนความถูกต้องของท่าทาง (Form Score)</div>
-<div class="feature">ช่วยให้ผู้ใช้สามารถออกกำลังกายได้อย่างถูกต้อง</div>
+<div class="feature">ใช้ Accelerometer ตรวจจับการยกแขนขึ้น-ลง</div>
+<div class="feature">ใช้ Rule-based Algorithm และ State Machine (ไม่มี Machine Learning)</div>
+<div class="feature">นับจำนวนครั้งอัตโนมัติ (Repetition Counter)</div>
+<div class="feature">มีเสียงแนะนำการออกกำลังกายด้วย Text-to-Speech</div>
+<div class="feature">มีการสั่นตอบสนองด้วย Haptics</div>
+<div class="feature">ประเมินความถูกต้องของท่าทาง (Range, Tempo, Direction)</div>
 
 </section>
 
@@ -175,13 +189,20 @@ footer{
 
 </section>
 
-<!-- ===== Video ===== -->
+<!-- ===== Video Link ===== -->
 <section class="section">
 <h2>🎬 วิดีโอสาธิตการใช้งาน</h2>
 
-<video controls>
-  <source src="Vdo.MOV">
-</video>
+<p style="margin-bottom:20px; opacity:.8;">
+วิดีโอแสดงการใช้งานจริงบนอุปกรณ์ Android<br>
+กด Start → มีเสียงแนะนำ → ระบบนับรอบอัตโนมัติ
+</p>
+
+<a href="https://drive.google.com/file/d/1nGE4z7SmS2Z2BU8QJVQet6gTbkqrzUP0/view?usp=sharing"
+   target="_blank"
+   class="video-btn">
+   ▶ เปิดวิดีโอสาธิต (Google Drive)
+</a>
 
 </section>
 
